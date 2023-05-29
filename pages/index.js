@@ -1,8 +1,5 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import Head from 'next/head'
-
-const inter = Inter({ subsets: ['latin'] })
+import Head from "next/head";
+import Header from "../components/Header";
 
 export default function Home() {
   return (
@@ -11,15 +8,12 @@ export default function Home() {
         <title>Create Next App</title>
       </Head>
 
-      <h1>Let's build Once Piece App</h1>
-
       {/* Header */}
+      <Header />
 
       {/* Nav */}
 
       {/* Results */}
-      
     </div>
-
-  )
+  );
 }
