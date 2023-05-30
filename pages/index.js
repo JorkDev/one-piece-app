@@ -15,8 +15,6 @@ export default function Home() {
       <Nav />
 
       <HomePage />
-
-      {/* Results */}
       
     </div>
   );
