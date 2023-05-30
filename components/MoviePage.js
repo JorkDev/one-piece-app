@@ -24,14 +24,16 @@ function MovieModal({ movie, characters, onClose }) {
         <p className="text-lg mt-4">{movie.synopsis}</p>
 
         <h3 className="text-xl font-bold mt-4">Personajes:</h3>
-        {firstFiveCharacters.map((character) => (
-          <div key={character.character.mal_id}>
-            <h3>{character.character.name}</h3>
-            <p>Rol: {character.role}</p>
-            <p>Favoritos: {character.favorites}</p>
-            {/* Mostrar más información de ser necesario */}
-          </div>
-        ))}
+        <div className="flex flex-wrap justify-center">
+          {firstFiveCharacters.map((character) => (
+            <div key={character.character.mal_id} className="w-1/4 p-2">
+              <h3>{character.character.name}</h3>
+              <p>Rol: {character.role}</p>
+              <p>Favoritos: {character.favorites}</p>
+              {/* Mostrar más información de ser necesario */}
+            </div>
+          ))}
+        </div>
 
         <button
           className="mt-4 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
