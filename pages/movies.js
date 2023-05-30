@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Header from "../components/Header";
 import Nav from "../components/Nav";
+import MoviePage from "@/components/MoviePage";
 
 export default function Movies() {
     return (
@@ -13,8 +14,7 @@ export default function Movies() {
     
           <Nav />
     
-    
-          {/* Results */}
+          <MoviePage />
           
         </div>
       );
