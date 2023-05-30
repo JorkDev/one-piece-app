@@ -33,37 +33,41 @@ function NewsPage() {
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-white mb-4">News Section</h1>
         <div className="flex flex-wrap -mx-4">
-          {news.map((newsItem) => (
-            <div
-              key={newsItem.mal_id}
-              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 mb-8"
-              onClick={() => openModal(newsItem)}
-            >
-              <div className="bg-red-800 rounded-lg overflow-hidden hover:bg-red-700 hover:transform hover:scale-105 transition-all duration-300 cursor-pointer">
-                <img
-                  src={newsItem.images.jpg.image_url}
-                  alt={newsItem.title}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4">
-                  <h2 className="text-lg font-bold text-white mb-2">
-                    {newsItem.title}
-                  </h2>
-                  <p className="text-gray-400 text-sm">
-                    {newsItem.date} by{" "}
-                    <a
-                      href={newsItem.author_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-500 hover:underline"
-                    >
-                      {newsItem.author_username}
-                    </a>
-                  </p>
+          {news.length > 0 ? (
+            news.map((newsItem) => (
+              <div
+                key={newsItem.mal_id}
+                className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 mb-8"
+                onClick={() => openModal(newsItem)}
+              >
+                <div className="bg-red-800 rounded-lg overflow-hidden hover:bg-red-700 hover:transform hover:scale-105 transition-all duration-300 cursor-pointer">
+                  <img
+                    src={newsItem.images.jpg.image_url}
+                    alt={newsItem.title}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-4">
+                    <h2 className="text-lg font-bold text-white mb-2">
+                      {newsItem.title}
+                    </h2>
+                    <p className="text-gray-400 text-sm">
+                      {newsItem.date} by{" "}
+                      <a
+                        href={newsItem.author_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 hover:underline"
+                      >
+                        {newsItem.author_username}
+                      </a>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p>No news available.</p>
+          )}
         </div>
       </div>
 
