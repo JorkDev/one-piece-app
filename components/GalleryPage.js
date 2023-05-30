@@ -33,8 +33,6 @@ function GalleryPage() {
       const link = document.createElement("a");
       link.href = selectedPicture.jpg.small_image_url;
       link.download = "imagen.jpg";
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
       link.click();
     }
   };
@@ -70,12 +68,18 @@ function GalleryPage() {
               alt="Imagen"
               className="w-64 h-64 object-cover mb-4"
             />
-            <div className="flex justify-center">
+            <div className="flex justify-center mb-4">
               <button
                 onClick={downloadImage}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
               >
                 Descargar
+              </button>
+              <button
+                onClick={closeModal}
+                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Cerrar
               </button>
             </div>
           </div>
