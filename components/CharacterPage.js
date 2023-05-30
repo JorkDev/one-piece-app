@@ -61,56 +61,61 @@ function CharacterGallery() {
 }
 
 function CharacterModal({ character, closeModal }) {
+  useEffect(() => {
+    document.body.classList.add("modal-open");
+
+    return () => {
+      document.body.classList.remove("modal-open");
+    };
+  }, []);
+
+  const limitedVoiceActors = character.voice_actors.slice(0, 5); // Limit to 5 voice actors
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="fixed inset-0 flex items-center justify-center z-40">
       <div className="absolute inset-0 bg-black opacity-50"></div>
       <div className="bg-white max-w-md mx-auto rounded-lg overflow-hidden shadow-lg relative">
-        <div className="bg-white max-w-md mx-auto rounded-lg overflow-hidden shadow-lg">
-          <div className="flex flex-row">
-            <div className="w-50">
-              <img
-                src={character.character.images.jpg.image_url}
-                alt={character.character.name}
-                className="w-full object-cover"
-              />
-            </div>
-            <div className="w-50">
-              <div className="p-4">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-bold">
-                    {character.character.name}
-                  </h2>
-                  <button
-                    className="text-gray-500 hover:text-gray-700"
-                    onClick={closeModal}
-                  >
-                    X
-                  </button>
-                </div>
-                <div className="my-4">
-                  <h3 className="text-lg font-bold">Rol: {character.role}</h3>
-                  <p className="text-gray-700">
-                    Favoritos: {character.favorites}
-                  </p>
-                </div>
-                <div className="my-4">
-                  <h3 className="text-lg font-bold">Actores de voz:</h3>
-                  <ul className="list-disc pl-4">
-                    {character.voice_actors.map((actor) => (
-                      <li key={actor.person.mal_id}>
-                        <a
-                          href={actor.person.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-500 hover:underline"
-                        >
-                          {actor.person.name}
-                        </a>{" "}
-                        - {actor.language}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+        {/* Modal content */}
+        <div className="flex flex-row">
+          <div className="w-50">
+            <img
+              src={character.character.images.jpg.image_url}
+              alt={character.character.name}
+              className="w-full object-cover"
+            />
+          </div>
+          <div className="w-50">
+            <div className="p-4">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-bold">{character.character.name}</h2>
+                <button
+                  className="text-gray-500 hover:text-gray-700"
+                  onClick={closeModal}
+                >
+                  X
+                </button>
+              </div>
+              <div className="my-4">
+                <h3 className="text-lg font-bold">Rol: {character.role}</h3>
+                <p className="text-gray-700">Favoritos: {character.favorites}</p>
+              </div>
+              <div className="my-4">
+                <h3 className="text-lg font-bold">Actores de voz:</h3>
+                <ul className="list-disc pl-4">
+                  {limitedVoiceActors.map((actor) => (
+                    <li key={actor.person.mal_id}>
+                      <a
+                        href={actor.person.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 hover:underline"
+                      >
+                        {actor.person.name}
+                      </a>{" "}
+                      - {actor.language}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
@@ -119,5 +124,6 @@ function CharacterModal({ character, closeModal }) {
     </div>
   );
 }
+
 
 export default CharacterGallery;
