@@ -26,7 +26,7 @@ function MovieModal({ movie, characters, onClose }) {
         <h3 className="text-xl font-bold mt-4">Personajes:</h3>
         <div className="flex flex-wrap justify-center">
           {firstFiveCharacters.map((character) => (
-            <div key={character.character.mal_id} className="w-1/4 p-2">
+            <div key={character.character.mal_id} className="w-1/5 p-2">
               <h3>{character.character.name}</h3>
               <p>Rol: {character.role}</p>
               <p>Favoritos: {character.favorites}</p>
