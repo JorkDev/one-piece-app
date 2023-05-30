@@ -30,9 +30,6 @@ function MovieModal({ movie, characters, onClose }) {
           {firstFiveCharacters.map((character) => (
             <div key={character.character.mal_id} className="w-1/5 p-2">
               <h3>{character.character.name}</h3>
-              <p>Rol: {character.role}</p>
-              <p>Favoritos: {character.favorites}</p>
-              {/* Mostrar más información de ser necesario */}
             </div>
           ))}
         </div>
