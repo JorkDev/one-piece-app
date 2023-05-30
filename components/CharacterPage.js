@@ -66,9 +66,7 @@ function CharacterModal({ character, closeModal }) {
       <div className="absolute inset-0 bg-black opacity-50"></div>
       <div className="bg-white max-w-md mx-auto rounded-lg overflow-hidden shadow-lg relative">
         <div className="bg-white max-w-md mx-auto rounded-lg overflow-hidden shadow-lg">
-          {/* Modal content */}
           <div className="flex flex-row">
-            {/* Image */}
             <div className="w-50">
               <img
                 src={character.character.images.jpg.image_url}
@@ -76,7 +74,6 @@ function CharacterModal({ character, closeModal }) {
                 className="w-full object-cover"
               />
             </div>
-            {/* Details */}
             <div className="w-50">
               <div className="p-4">
                 <div className="flex items-center justify-between">
