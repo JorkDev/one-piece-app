@@ -5,7 +5,7 @@ function AnimePage() {
   const [episodes, setEpisodes] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const perPage = 10;  
+  const perPage = 20;
 
   useEffect(() => {
     const getEpisodes = async () => {
@@ -25,10 +25,24 @@ function AnimePage() {
         console.error("Error fetching episodes:", error);
       }
     };
-  
+
     getEpisodes();
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.body.scrollHeight - 50
+      ) {
+        setPage((prevPage) => prevPage + 1);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div className="min-h-screen">
@@ -42,7 +56,7 @@ function AnimePage() {
           endMessage={<p>No more episodes to load.</p>}
         >
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {episodes.map((episode) => (
+            {episodes.slice(0, perPage).map((episode) => (
               <div
                 key={episode.mal_id}
                 className="bg-red-800 rounded-lg overflow-hidden hover:bg-red-700 hover:transform hover:scale-105 transition-all duration-300 cursor-pointer"
@@ -60,7 +74,6 @@ function AnimePage() {
       </div>
     </div>
   );
-
 }
 
 export default AnimePage;
