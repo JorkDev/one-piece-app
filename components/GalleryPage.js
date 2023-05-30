@@ -28,15 +28,6 @@ function GalleryPage() {
     setSelectedPicture(null);
   };
 
-  const downloadImage = () => {
-    if (selectedPicture) {
-      const link = document.createElement("a");
-      link.href = selectedPicture.jpg.small_image_url;
-      link.download = "imagen.jpg";
-      link.click();
-    }
-  };
-
   return (
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8">
@@ -64,24 +55,26 @@ function GalleryPage() {
           <div className="fixed inset-0 bg-black opacity-50"></div>
           <div className="bg-white rounded-lg p-4 relative">
             <img
-              src={selectedPicture.jpg.small_image_url}
+              src={selectedPicture.jpg.large_image_url}
               alt="Imagen"
               className="w-64 h-64 object-cover mb-4"
             />
             <div className="flex justify-center mb-4">
-              <button
-                onClick={downloadImage}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
+              <a
+                href={selectedPicture.jpg.large_image_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >
-                Descargar
-              </button>
-              <button
-                onClick={closeModal}
-                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-              >
-                Cerrar
-              </button>
+                Ver en alta calidad
+              </a>
             </div>
+            <button
+              onClick={closeModal}
+              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded absolute top-0 right-0 mt-4 mr-4"
+            >
+              Cerrar
+            </button>
           </div>
         </div>
       )}
