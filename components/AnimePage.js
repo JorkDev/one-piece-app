@@ -13,13 +13,17 @@ function AnimePage() {
           `https://api.jikan.moe/v4/anime/21/episodes?page=${page}&limit=10`
         );
         const data = await response.json();
-        setEpisodes((prevEpisodes) => [...prevEpisodes, ...data.data]);
+        if (Array.isArray(data.data)) {
+          setEpisodes((prevEpisodes) => [...prevEpisodes, ...data.data]);
+        } else if (data.data) {
+          setEpisodes((prevEpisodes) => [...prevEpisodes, data.data]);
+        }
         setPage((prevPage) => prevPage + 1);
         setHasMore(data.data.length > 0);
       } catch (error) {
         console.error("Error buscando episodios:", error);
       }
-    };
+    };    
 
     getEpisodes();
   }, [page]);
