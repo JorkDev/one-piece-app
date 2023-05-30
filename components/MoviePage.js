@@ -42,7 +42,7 @@ function MovieModal({ movie, characters, onClose }) {
             <div
               key={character.character.mal_id}
               className="w-1/5 p-2"
-              onMouseEnter={(event) => handleCharacterHover(character.character, event)}
+              onMouseEnter={(event) => handleCharacterHover(character, event)}
               onMouseLeave={handleCharacterHoverExit}
             >
               <h3>{character.character.name}</h3>
@@ -52,7 +52,7 @@ function MovieModal({ movie, characters, onClose }) {
 
         {hoveredCharacter && (
           <div
-            className="absolute bg-white p-2 rounded shadow"
+            className="absolute bg-white p-2 rounded shadow text-black"
             style={{
               top: bubblePosition.y,
               left: bubblePosition.x,
