@@ -7,7 +7,7 @@ export default function Movies() {
     return (
         <div>
           <Head>
-            <title>Movies</title>
+            <title>Películas</title>
           </Head>
     
           <Header />

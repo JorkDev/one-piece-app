@@ -7,7 +7,7 @@ export default function Characters() {
   return (
     <div>
       <Head>
-        <title>Characters</title>
+        <title>Personajes</title>
       </Head>
 
       <Header />
