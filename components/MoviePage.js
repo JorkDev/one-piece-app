@@ -1,24 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function MovieModal({ movie, onClose }) {
-  const [characters, setCharacters] = useState([]);
-
-  useEffect(() => {
-    const fetchCharacters = async () => {
-      try {
-        const response = await fetch(
-          `https://api.jikan.moe/v4/anime/${movie.mal_id}/characters`
-        );
-        const data = await response.json();
-        setCharacters(data.data.characters);
-      } catch (error) {
-        console.error("Error al buscar personajes:", error);
-      }
-    };
-
-    fetchCharacters();
-  }, [movie.mal_id]);
-
+function MovieModal({ movie, characters, onClose }) {
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-900 bg-opacity-75">
       <div className="bg-black p-4 rounded-lg text-center">
@@ -40,11 +22,14 @@ function MovieModal({ movie, onClose }) {
         <p className="text-lg mt-4">{movie.synopsis}</p>
 
         <h3 className="text-xl font-bold mt-4">Personajes:</h3>
-        <ul className="text-left">
-          {characters?.map((character) => (
-            <li key={character.mal_id}>{character.name}</li>
-          ))}
-        </ul>
+        {characters.map((character) => (
+          <div key={character.character.mal_id}>
+            <h3>{character.character.name}</h3>
+            <p>Rol: {character.role}</p>
+            <p>Favoritos: {character.favorites}</p>
+            {/* Mostrar más información de ser necesario */}
+          </div>
+        ))}
 
         <button
           className="mt-4 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
@@ -60,6 +45,7 @@ function MovieModal({ movie, onClose }) {
 function MoviePage() {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [selectedCharacters, setSelectedCharacters] = useState([]);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -77,12 +63,26 @@ function MoviePage() {
     fetchMovies();
   }, []);
 
-  function openModal(movie) {
+  async function fetchCharacters(movieId) {
+    try {
+      const response = await fetch(`https://api.jikan.moe/v4/anime/${movieId}/characters`);
+      const data = await response.json();
+      return data.data;
+    } catch (error) {
+      console.error("Error al buscar los personajes:", error);
+      return [];
+    }
+  }
+
+  async function openModal(movie) {
     setSelectedMovie(movie);
+    const characters = await fetchCharacters(movie.mal_id);
+    setSelectedCharacters(characters);
   }
 
   function closeModal() {
     setSelectedMovie(null);
+    setSelectedCharacters([]);
   }
 
   return (
@@ -93,18 +93,13 @@ function MoviePage() {
           {movies.map((movie) => (
             <div
               key={movie.mal_id}
-              className="bg-red-800 rounded-lg overflow-hidden hover:bg-red-700 hover:transform hover:scale-105 transition-all duration-300 cursor-pointer"
+              className="bg-red-800 rounded-lg overflow-hidden hover:bg-red-700 hover:transform hover:scale-105 transition-all duration-300"
               onClick={() => openModal(movie)}
             >
-              <div className="p-4">
-                <img
-                  src={movie.images.jpg.image_url}
-                  alt={movie.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="text-white text-center mt-2">
-                  {movie.title}
-                </div>
+              <img src={movie.images.jpg.image_url} alt={movie.title} className="w-full" />
+              <div className="p-2">
+                <h3 className="text-white font-bold text-lg">{movie.title}</h3>
+                <p className="text-white text-sm">Duración: {movie.duration} min</p>
               </div>
             </div>
           ))}
@@ -112,7 +107,7 @@ function MoviePage() {
       </div>
 
       {selectedMovie && (
-        <MovieModal movie={selectedMovie} onClose={closeModal} />
+        <MovieModal movie={selectedMovie} characters={selectedCharacters} onClose={closeModal} />
       )}
     </div>
   );
