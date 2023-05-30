@@ -1,17 +1,25 @@
-import Image from "next/image"
+import {
+  HomeIcon
+} from "@heroicons/react/24/outline";
+import Image from "next/image";
+import HeaderItem from "./HeaderItem";
 
 function Header() {
   return (
     <header className="">
-        <h1>This is the header</h1>
-        <Image
+      <div>
+        <HeaderItem title="INICIO" Icon={HomeIcon} />
+      </div>
+
+      <Image
+        className="object-contain"
         src="/logo.png"
         width={200}
         height={200}
         alt="Picture of the author"
       />
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;
