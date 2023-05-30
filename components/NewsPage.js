@@ -24,15 +24,37 @@ function NewsPage() {
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-white mb-4">Novedades</h1>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {news.map((news) => (
+          {news.map((newsItem) => (
             <div
-              key={news.mal_id}
+              key={newsItem.mal_id}
               className="bg-red-800 rounded-lg overflow-hidden hover:bg-red-700 hover:transform hover:scale-105 transition-all duration-300 cursor-pointer"
             >
               <div className="p-4">
                 <h2 className="text-lg font-bold text-white mb-2">
-                  {news.title}
+                  {newsItem.title}
                 </h2>
+                <img
+                  src={newsItem.images.jpg.image_url}
+                  alt={newsItem.title}
+                  className="w-full h-48 object-cover mb-2"
+                />
+                <p className="text-gray-400 text-sm mb-2">
+                  {newsItem.excerpt}
+                </p>
+                <div className="flex justify-between text-gray-400 text-sm">
+                  <span>
+                    {newsItem.date} by{" "}
+                    <a
+                      href={newsItem.author_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-500 hover:underline"
+                    >
+                      {newsItem.author_username}
+                    </a>
+                  </span>
+                  <span>{newsItem.comments} comments</span>
+                </div>
               </div>
             </div>
           ))}
