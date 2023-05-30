@@ -8,18 +8,20 @@ function MovieModal({ movie, characters, onClose }) {
       <div className="bg-black p-4 rounded-lg text-center">
         <h2 className="text-2xl font-bold mb-2">{movie.title}</h2>
 
-        {movie.trailer && movie.trailer.youtube_id ? (
-          <iframe
-            width="560"
-            height="315"
-            src={`https://www.youtube.com/embed/${movie.trailer.youtube_id}`}
-            title="Trailer"
-            frameBorder="0"
-            allowFullScreen
-          ></iframe>
-        ) : (
-          <p>No hay tráiler disponible para esta película.</p>
-        )}
+        <div className="aspect-w-16 aspect-h-9 flex items-center justify-center">
+          {movie.trailer && movie.trailer.youtube_id ? (
+            <iframe
+              width="560"
+              height="315"
+              src={`https://www.youtube.com/embed/${movie.trailer.youtube_id}`}
+              title="Trailer"
+              frameBorder="0"
+              allowFullScreen
+            ></iframe>
+          ) : (
+            <p>No hay tráiler disponible para esta película.</p>
+          )}
+        </div>
 
         <p className="text-lg mt-4">{movie.synopsis}</p>
 
