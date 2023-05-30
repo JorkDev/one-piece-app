@@ -2,6 +2,17 @@ import React, { useState, useEffect } from "react";
 
 function MovieModal({ movie, characters, onClose }) {
   const firstFiveCharacters = characters.slice(0, 5);
+  const [hoveredCharacter, setHoveredCharacter] = useState(null);
+  const [bubblePosition, setBubblePosition] = useState({ x: 0, y: 0 });
+
+  const handleCharacterHover = (character, event) => {
+    setHoveredCharacter(character);
+    setBubblePosition({ x: event.clientX, y: event.clientY });
+  };
+
+  const handleCharacterHoverExit = () => {
+    setHoveredCharacter(null);
+  };
 
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-900 bg-opacity-75">
@@ -28,11 +39,30 @@ function MovieModal({ movie, characters, onClose }) {
         <h3 className="text-xl font-bold mt-4">Personajes:</h3>
         <div className="flex flex-wrap justify-center">
           {firstFiveCharacters.map((character) => (
-            <div key={character.character.mal_id} className="w-1/5 p-2">
-              <h3>{character.character.name}</h3>
+            <div
+              key={character.mal_id}
+              className="w-1/5 p-2"
+              onMouseEnter={(event) => handleCharacterHover(character, event)}
+              onMouseLeave={handleCharacterHoverExit}
+            >
+              <h3>{character.name}</h3>
             </div>
           ))}
         </div>
+
+        {hoveredCharacter && (
+          <div
+            className="absolute bg-white p-2 rounded shadow"
+            style={{
+              top: bubblePosition.y,
+              left: bubblePosition.x,
+            }}
+          >
+            <h4>{hoveredCharacter.name}</h4>
+            <p>Role: {hoveredCharacter.role}</p>
+            <p>Favoritos: {hoveredCharacter.favorites}</p>
+          </div>
+        )}
 
         <button
           className="mt-4 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
