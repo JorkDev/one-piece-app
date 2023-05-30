@@ -1,10 +1,10 @@
 import {
   HomeIcon,
-  BookOpenIcon,
   FilmIcon,
   TvIcon,
   UserIcon,
   NewspaperIcon,
+  PhotoIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import HeaderItem from "./HeaderItem";
@@ -17,8 +17,8 @@ function Header() {
         <Link href="/">
           <HeaderItem title={"INICIO"} Icon={HomeIcon} />
         </Link>
-        <Link href="/manga">
-          <HeaderItem title="MANGA" Icon={BookOpenIcon} />
+        <Link href="/gallery">
+          <HeaderItem title="GALERÍA" Icon={PhotoIcon} />
         </Link>
         <Link href="/movies">
           <HeaderItem title="PELÍCULAS" Icon={FilmIcon} />
