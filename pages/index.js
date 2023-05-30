@@ -5,13 +5,11 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
+        <title>One Piece App</title>
       </Head>
 
-      {/* Header */}
       <Header />
 
-      {/* Nav */}
       <Nav />
       {/* Results */}
     </div>
