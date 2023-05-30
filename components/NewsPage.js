@@ -25,8 +25,11 @@ function NewsPage() {
         <h1 className="text-3xl font-bold text-white mb-4">Novedades</h1>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {news.map((newsItem) => (
-            <div
+            <a
               key={newsItem.mal_id}
+              href={newsItem.url}
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-red-800 rounded-lg overflow-hidden hover:bg-red-700 hover:transform hover:scale-105 transition-all duration-300 cursor-pointer"
             >
               <div className="p-4">
@@ -38,10 +41,10 @@ function NewsPage() {
                   alt={newsItem.title}
                   className="w-full h-48 object-cover mb-2"
                 />
-                <p className="text-gray-400 text-sm mb-2">
+                <p className="text-white text-sm mb-2">
                   {newsItem.excerpt}
                 </p>
-                <div className="flex justify-between text-gray-400 text-sm">
+                <div className="flex justify-between text-white text-sm">
                   <span>
                     {newsItem.date} by{" "}
                     <a
@@ -56,7 +59,7 @@ function NewsPage() {
                   <span>{newsItem.comments} comments</span>
                 </div>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>
