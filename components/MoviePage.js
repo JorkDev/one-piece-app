@@ -4,7 +4,7 @@ function MovieModal({ movie, onClose }) {
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-900 bg-opacity-75">
       <div className="bg-black p-4 rounded-lg">
-        <h2 className="text-2xl font-bold mb-2">{movie.title}</h2>
+        <h2 className="text-2xl font-bold mb-2 text-center">{movie.title}</h2>
 
         {movie.trailer && movie.trailer.youtube_id ? (
           <iframe
