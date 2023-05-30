@@ -23,8 +23,8 @@ function Header() {
         <Link href="/movies">
           <HeaderItem title="PELÍCULAS" Icon={FilmIcon} />
         </Link>
-        <Link href="/seasons">
-          <HeaderItem title="TEMPORADAS" Icon={TvIcon} />
+        <Link href="/episodes">
+          <HeaderItem title="EPISODIOS" Icon={TvIcon} />
         </Link>
         <Link href="/characters">
           <HeaderItem title="PERSONAJES" Icon={UserIcon} />
