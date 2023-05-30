@@ -3,44 +3,47 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 function AnimePage() {
   const [episodes, setEpisodes] = useState([]);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const perPage = 20;
 
   useEffect(() => {
     const getEpisodes = async () => {
       try {
         const response = await fetch(
-          `https://api.jikan.moe/v4/anime/21/episodes?page=${page}&limit=${perPage}`
+          `https://api.jikan.moe/v4/anime/21/episodes?page=${currentPage}&limit=${perPage}`
         );
         const data = await response.json();
         if (Array.isArray(data.data)) {
-          setEpisodes(data.data);
+          setEpisodes((prevEpisodes) => [...prevEpisodes, ...data.data]);
         } else if (data.data) {
-          setEpisodes([data.data]);
+          setEpisodes((prevEpisodes) => [...prevEpisodes, data.data]);
         }
-        setPage(1);
-        setHasMore(data.data.length > 0);
+        setTotalPages(data.pagination.last_page);
       } catch (error) {
         console.error("Error fetching episodes:", error);
       }
     };
 
     getEpisodes();
-  }, []);
+  }, [currentPage]);
+
+  const loadMoreEpisodes = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  const handleScroll = () => {
+    if (
+      window.innerHeight + window.scrollY >= document.body.scrollHeight - 50
+    ) {
+      loadMoreEpisodes();
+    }
+  };
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + window.scrollY >=
-        document.body.scrollHeight - 50
-      ) {
-        setPage((prevPage) => prevPage + 1);
-      }
-    };
-
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -50,10 +53,10 @@ function AnimePage() {
         <h1 className="text-3xl font-bold text-white mb-4">Episodios</h1>
         <InfiniteScroll
           dataLength={episodes.length}
-          next={() => setPage((prevPage) => prevPage + 1)}
-          hasMore={hasMore}
+          next={loadMoreEpisodes}
+          hasMore={currentPage < totalPages}
           loader={<h4>Loading...</h4>}
-          endMessage={<p>No more episodes to load.</p>}
+          endMessage={<p>No hay más episodios.</p>}
         >
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {episodes.slice(0, perPage).map((episode) => (
