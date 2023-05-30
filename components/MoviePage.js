@@ -65,7 +65,9 @@ function MoviePage() {
 
   async function fetchCharacters(movieId) {
     try {
-      const response = await fetch(`https://api.jikan.moe/v4/anime/${movieId}/characters`);
+      const response = await fetch(
+        `https://api.jikan.moe/v4/anime/${movieId}/characters`
+      );
       const data = await response.json();
       return data.data;
     } catch (error) {
@@ -88,18 +90,26 @@ function MoviePage() {
   return (
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-white mb-4">Películas de One Piece</h1>
+        <h1 className="text-3xl font-bold text-white mb-4">
+          Películas de One Piece
+        </h1>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {movies.map((movie) => (
             <div
               key={movie.mal_id}
-              className="bg-red-800 rounded-lg overflow-hidden hover:bg-red-700 hover:transform hover:scale-105 transition-all duration-300"
+              className="bg-red-800 rounded-lg overflow-hidden hover:bg-red-700 hover:transform hover:scale-105 cursor-pointer"
               onClick={() => openModal(movie)}
             >
-              <img src={movie.images.jpg.image_url} alt={movie.title} className="w-full" />
+              <img
+                src={movie.images.jpg.image_url}
+                alt={movie.title}
+                className="w-full"
+              />
               <div className="p-2">
                 <h3 className="text-white font-bold text-lg">{movie.title}</h3>
-                <p className="text-white text-sm">Duración: {movie.duration} min</p>
+                <p className="text-white text-sm">
+                  Duración: {movie.duration} min
+                </p>
               </div>
             </div>
           ))}
@@ -107,7 +117,11 @@ function MoviePage() {
       </div>
 
       {selectedMovie && (
-        <MovieModal movie={selectedMovie} characters={selectedCharacters} onClose={closeModal} />
+        <MovieModal
+          movie={selectedMovie}
+          characters={selectedCharacters}
+          onClose={closeModal}
+        />
       )}
     </div>
   );
