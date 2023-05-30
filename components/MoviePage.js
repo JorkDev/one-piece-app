@@ -1,6 +1,24 @@
 import React, { useState, useEffect } from "react";
 
 function MovieModal({ movie, onClose }) {
+  const [characters, setCharacters] = useState([]);
+
+  useEffect(() => {
+    const fetchCharacters = async () => {
+      try {
+        const response = await fetch(
+          `https://api.jikan.moe/v4/anime/${movie.mal_id}/characters`
+        );
+        const data = await response.json();
+        setCharacters(data.data.characters);
+      } catch (error) {
+        console.error("Error al buscar personajes:", error);
+      }
+    };
+
+    fetchCharacters();
+  }, [movie.mal_id]);
+
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-900 bg-opacity-75">
       <div className="bg-black p-4 rounded-lg text-center">
@@ -20,6 +38,13 @@ function MovieModal({ movie, onClose }) {
         )}
 
         <p className="text-lg mt-4">{movie.synopsis}</p>
+
+        <h3 className="text-xl font-bold mt-4">Personajes:</h3>
+        <ul className="text-left">
+          {characters?.map((character) => (
+            <li key={character.mal_id}>{character.name}</li>
+          ))}
+        </ul>
 
         <button
           className="mt-4 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
