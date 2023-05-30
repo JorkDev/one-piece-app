@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 function GalleryPage() {
-  const [pictures, setPictures] = React.useState([]);
+  const [pictures, setPictures] = useState([]);
+  const [selectedPicture, setSelectedPicture] = useState(null);
 
   useEffect(() => {
     const getPictures = async () => {
@@ -19,6 +20,25 @@ function GalleryPage() {
     getPictures();
   }, []);
 
+  const openModal = (picture) => {
+    setSelectedPicture(picture);
+  };
+
+  const closeModal = () => {
+    setSelectedPicture(null);
+  };
+
+  const downloadImage = () => {
+    if (selectedPicture) {
+      const link = document.createElement("a");
+      link.href = selectedPicture.jpg.small_image_url;
+      link.download = "imagen.jpg";
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.click();
+    }
+  };
+
   return (
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8">
@@ -28,6 +48,7 @@ function GalleryPage() {
             <div
               key={index}
               className="bg-red-800 rounded-lg overflow-hidden hover:bg-red-700 hover:transform hover:scale-105 transition-all duration-300 cursor-pointer"
+              onClick={() => openModal(picture)}
             >
               <div className="p-4">
                 <img
@@ -40,6 +61,26 @@ function GalleryPage() {
           ))}
         </div>
       </div>
+      {selectedPicture && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-black opacity-50"></div>
+          <div className="bg-white rounded-lg p-4 relative">
+            <img
+              src={selectedPicture.jpg.small_image_url}
+              alt="Imagen"
+              className="w-64 h-64 object-cover mb-4"
+            />
+            <div className="flex justify-center">
+              <button
+                onClick={downloadImage}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Descargar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
