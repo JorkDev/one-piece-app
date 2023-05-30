@@ -40,12 +40,12 @@ function MovieModal({ movie, characters, onClose }) {
         <div className="flex flex-wrap justify-center">
           {firstFiveCharacters.map((character) => (
             <div
-              key={character.mal_id}
+              key={character.character.mal_id}
               className="w-1/5 p-2"
-              onMouseEnter={(event) => handleCharacterHover(character, event)}
+              onMouseEnter={(event) => handleCharacterHover(character.character, event)}
               onMouseLeave={handleCharacterHoverExit}
             >
-              <h3>{character.name}</h3>
+              <h3>{character.character.name}</h3>
             </div>
           ))}
         </div>
