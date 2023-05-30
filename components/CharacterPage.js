@@ -28,6 +28,11 @@ function CharacterGallery() {
     setSelectedCharacter(null);
   };
 
+  // Filter characters with role "Main"
+  const mainCharacters = characters.filter(
+    (character) => character.role === "Main"
+  );
+
   return (
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8">
@@ -35,7 +40,7 @@ function CharacterGallery() {
           Galería de personajes
         </h1>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {characters.map((character) => (
+          {mainCharacters.map((character) => (
             <div
               key={character.character.mal_id}
               className="bg-red-800 rounded-lg overflow-hidden hover:bg-red-700 hover:transform hover:scale-105 transition-all duration-300 cursor-pointer"
@@ -87,7 +92,9 @@ function CharacterModal({ character, closeModal }) {
           <div className="w-50">
             <div className="p-4">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold">{character.character.name}</h2>
+                <h2 className="text-xl font-bold">
+                  {character.character.name}
+                </h2>
                 <button
                   className="text-gray-500 hover:text-gray-700"
                   onClick={closeModal}
@@ -97,7 +104,9 @@ function CharacterModal({ character, closeModal }) {
               </div>
               <div className="my-4">
                 <h3 className="text-lg font-bold">Rol: {character.role}</h3>
-                <p className="text-gray-700">Favoritos: {character.favorites}</p>
+                <p className="text-gray-700">
+                  Favoritos: {character.favorites}
+                </p>
               </div>
               <div className="my-4">
                 <h3 className="text-lg font-bold">Actores de voz:</h3>
@@ -124,6 +133,5 @@ function CharacterModal({ character, closeModal }) {
     </div>
   );
 }
-
 
 export default CharacterGallery;
