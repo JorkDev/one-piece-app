@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 function MovieModal({ movie, characters, onClose }) {
+  const firstFiveCharacters = characters.slice(0, 5);
+
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-900 bg-opacity-75">
       <div className="bg-black p-4 rounded-lg text-center">
@@ -22,7 +24,7 @@ function MovieModal({ movie, characters, onClose }) {
         <p className="text-lg mt-4">{movie.synopsis}</p>
 
         <h3 className="text-xl font-bold mt-4">Personajes:</h3>
-        {characters.map((character) => (
+        {firstFiveCharacters.map((character) => (
           <div key={character.character.mal_id}>
             <h3>{character.character.name}</h3>
             <p>Rol: {character.role}</p>
@@ -97,7 +99,7 @@ function MoviePage() {
           {movies.map((movie) => (
             <div
               key={movie.mal_id}
-              className="bg-red-800 rounded-lg overflow-hidden hover:bg-red-700 hover:transform hover:scale-105 cursor-pointer"
+              className="bg-red-800 rounded-lg overflow-hidden shadow-lg relative aspect-w-16 aspect-h-9 hover:scale-105 cursor-pointer"
               onClick={() => openModal(movie)}
             >
               <img
