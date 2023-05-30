@@ -6,7 +6,7 @@ Esta es una aplicación de ReactJS y NextJS que te permite explorar y obtener in
 
 - Muestra una lista de películas de One Piece obtenida de la API Jikan.
 - Permite ver detalles de cada película, incluyendo sinopsis, fecha de lanzamiento, duración y el trailer.
-- Incluye una galería para ver material ofocial de One Piece y una opción para descargar.
+- Incluye una galería para ver material ofocial de One Piece y una opción para ver en alta calidad.
 - Proporciona información detallada de los personajes de cada película.
 - Sección de novedades sobre el anime en cuestión.
 - Ofrece una experiencia de usuario fluida y fácil de usar.
