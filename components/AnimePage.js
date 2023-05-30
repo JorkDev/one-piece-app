@@ -5,6 +5,7 @@ function AnimePage() {
   const [episodes, setEpisodes] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const perPage = 20;  
 
   useEffect(() => {
     const getEpisodes = async () => {
