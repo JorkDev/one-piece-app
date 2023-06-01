@@ -15,7 +15,6 @@ module.exports = {
     },
   },
   plugins: [
-    require("tailwind-scrollbar-hide"),
-    require("tailwindcss-hero-patterns"),
+    require("tailwind-scrollbar-hide")
   ],
 };
